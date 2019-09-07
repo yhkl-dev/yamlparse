@@ -10,13 +10,18 @@ from __future__ import print_function
 import argparse
 import yaml
 
-def change_yaml_file(key, value, file_name, new_file_name):
-    with open(file_name, 'r' ) as f:
-        data = yaml.full_load(file(file_name, 'r'))
-        if key:
-            print(data.get(key))
-            new_data = print_dict(data, key, value)
-            print(new_data)
+def change_yaml_file(key, value, file_name, new_file_name=None):
+    with open(file_name, 'r') as f:
+        data = yaml.load(f.read())
+        if key and data.get(key):
+            print("The value is: ", data.get(key))
+            if value is not None:
+                new_data = print_dict(data, key, value)
+                print('New data is: ', new_data)
+            else:
+                pass
+        else:
+            print('Can not find {}'.format(key))
 
     if new_file_name:
         try:
@@ -27,7 +32,7 @@ def change_yaml_file(key, value, file_name, new_file_name):
 
 def print_dict(d, key, value):
     for k, v in d.iteritems():
-	if k == key:
+        if k == key:
            d[k]=value
            return d
         else:
@@ -35,7 +40,7 @@ def print_dict(d, key, value):
                 v = print_dict(v, key, value)
     return d
 
-def command_line_parse():
+def main():
     parser = argparse.ArgumentParser(description='parse and change yaml configure file')
     parser.add_argument('-k', '--key', help='configure parameter name')
     parser.add_argument('-r', '--replace', help='the parameters you want change')
@@ -49,5 +54,5 @@ def command_line_parse():
 
 
 if __name__ == '__main__':
-    command_line_parse()
+    main()
 
