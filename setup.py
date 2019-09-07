@@ -33,7 +33,7 @@ DESCRIPTION = "命令解析yaml文件并替换键值 工具"
 
 #LONG_DESCRIPTION为项目详细介绍，这里取README.md作为介绍
 here = path.abspath(path.dirname(__file__))
-with open(path.join(here, 'README.md'), encoding='utf-8', 'r') as f:
+with open(path.join(here, 'README'), encoding='utf-8') as f:
     LONG_DESCRIPTION = f.read()
 
 #搜索关键词
